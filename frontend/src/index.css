@@ -9,3 +9,18 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+::-webkit-scrollbar {
+  width: 0.6vw;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}

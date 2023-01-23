@@ -1,26 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { Link, Routes, Route, json } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import { Sidebar, UserProfile } from "../components/exporter";
 import { client } from "../client";
 import Logo from "../assets/logo_red.png";
 import Pins from "./Pins";
 import { userQuery } from "../utils/data";
+import { fetchUser } from "../utils/fetchUser";
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState(null);
   const scrollRef = useRef(null);
-  const userInfo =
-    localStorage.getItem("user") !== "undefined"
-      ? JSON.parse(localStorage.getItem("user"))
-      : localStorage.clear();
+  const userInfo = fetchUser();
 
   useEffect(() => {
     const query = userQuery(userInfo?.googleId);
     client.fetch(query).then((data) => {
       setUser(data[0]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -40,10 +39,10 @@ const Home = () => {
             onClick={() => setToggleSidebar(true)}
           />
           <Link to="/">
-            <img src={Logo} alt="Logo" className="w-28 " />
+            <img src={Logo} alt="Logo" className="w-28 rounded-lg" />
           </Link>
           <Link to={`user-profile/${user?._id}`}>
-            <img src={user?.image} alt="profile" className="w-28 " />
+            <img src={user?.image} alt="profile" className="w-28 rounded-lg" />
           </Link>
         </div>
         {toggleSidebar && (
@@ -61,7 +60,7 @@ const Home = () => {
       </div>
       <div className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
         <Routes>
-          <Route path="/user-profile/:userid" element={<UserProfile />} />
+          <Route path="/user-profile/:userId" element={<UserProfile />} />
           <Route path="/*" element={<Pins user={user && user} />} />
         </Routes>
       </div>

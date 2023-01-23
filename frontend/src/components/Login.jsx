@@ -7,6 +7,7 @@ import logo from "../assets/Logo_1_Arshu.png";
 import { gapi } from "gapi-script";
 import { client } from "../client";
 const Login = () => {
+  document.title = "Arshu - Login";
   const navigate = useNavigate();
   useEffect(() => {
     function start() {
